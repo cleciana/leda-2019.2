@@ -1,5 +1,7 @@
 package problems;
 
+import java.util.Scanner;
+
 /**
  * Calcula o floor e ceil de um numero em um array usando a estrategia de busca
  * binaria.
@@ -12,10 +14,8 @@ package problems;
  */
 public class FloorCeilBinarySearch implements FloorCeil {
 
-//	ceil(x)	é o inteiro maior e mais próximo de x, 
-//	e floor(x) é o inteiro menor e mais próximo de x
+	
 
-	@Override
 	public Integer floor(Integer[] array, Integer x) {
 		return floorSearch(array, 0, array.length - 1, x);
 	}
@@ -31,7 +31,6 @@ public class FloorCeilBinarySearch implements FloorCeil {
 		}
 	}
 
-	@Override
 	public Integer ceil(Integer[] array, Integer x) {
 		return ceilSearch(array, 0, array.length - 1, x);
 	}
@@ -43,7 +42,7 @@ public class FloorCeilBinarySearch implements FloorCeil {
 			return array[meio];
 			
 		} else {
-			return ceilSearch(array, i, meio, x);
+			return ceilSearch(array, meio, j, x);
 		}
 	}
 	
