@@ -78,26 +78,20 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 			recursiveSLL.setNext(recursiveSLL.getNext().getNext());
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public T[] toArray() {
 		T[] array = (T[]) new Comparable[this.size()];
 		return toArray(array, 0, this);
-		
-//		RecursiveSingleLinkedListImpl<T> aux = this;
-//		
-//		int i = 0;
-//		while(aux.data != null) {
-//			array[i] = aux.data;
-//			aux = aux.next;
-//			i += 1;
-//		}
-//		return array;
 	}
 
 	private T[] toArray(T[] array, int i, RecursiveSingleLinkedListImpl<T> aux) {
 		if (aux.data != null)
 			array[i] = aux.data;
 		
+		else {
+			return array;
+		}
 		return toArray(array, i+1, aux.next);
 	}
 
