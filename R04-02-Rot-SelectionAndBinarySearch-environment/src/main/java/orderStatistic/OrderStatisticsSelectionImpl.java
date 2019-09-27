@@ -24,21 +24,40 @@ public class OrderStatisticsSelectionImpl<T extends Comparable<T>> implements Or
 		
 		if (array.length < k) return null;
 		
-		return estatisticaDeOrdem(array, k, array[0]);
+		if (array.length == k)  {
+			T maiorElemento = array[0];
+			
+			for (int i = 0; i < array.length; i++) {
+				if (array[i].compareTo(maiorElemento) > 0) {
+					maiorElemento = array[i];
+				}
+			}
+			return maiorElemento;
+			
+		} else {
+			T menorElemento = array[0];
+			
+			for (int i = 0; i < array.length; i++) {
+				if (array[i].compareTo(menorElemento) < 0) {
+					menorElemento = array[i];
+				}
+			}
+			return estatisticaDeOrdem(array, k-1, menorElemento);
+		}
 	}
 
-	private T estatisticaDeOrdem(T[] array, int k, T menorElemento) {
+	private T estatisticaDeOrdem(T[] array, int k, T menorElemento) {	
 		if (k == 0) {
 			return menorElemento;
 		}
-		T menor = array[0];
 		
-		for (int i = 1; i < array.length; i++) {			
-			if (array[i].compareTo(menor) < 0 && menor.compareTo(menorElemento) >= 0) {
-				menor = array[i];
+		T menorAtual = array[0];
+		for (int i = 0; i < array.length; i++) {			
+			
+			if (array[i].compareTo(menorAtual) <= 0 && array[i].compareTo(menorElemento) > 0) {
+				menorAtual = array[i];
 			}
 		}
-		return estatisticaDeOrdem(array, k-1, menor);
+		return estatisticaDeOrdem(array, k-1, menorAtual);
 	}
-
 }

@@ -12,27 +12,31 @@ import util.Util;
  * iteration does the same from index 1 to index N-2. And so on. The execution
  * continues until the array is completely ordered.
  */
-public class SimultaneousSelectionsort<T extends Comparable<T>> extends
-		AbstractSorting<T> {
+public class SimultaneousSelectionsort<T extends Comparable<T>> extends AbstractSorting<T> {
 	public void sort(T[] array, int leftIndex, int rightIndex) {
 		int minIndex;
 		int maxIndex;
-		
-		for(int i = leftIndex; i < rightIndex; i++) {
+
+		for (int i = leftIndex; i < rightIndex; i++) {
+			if (i > (leftIndex + rightIndex) / 2) return ;
 			
 			minIndex = i;
 			maxIndex = i;
-			for(int j = i+1; j <= rightIndex-i; j++) {
-				
-				if(array[minIndex].compareTo(array[j]) == 1) {
+			for (int j = i + 1; j <= rightIndex - i; j++) {
+
+				if (array[minIndex].compareTo(array[j]) > 0) {
 					minIndex = j;
-					
-				} else if(array[maxIndex].compareTo(array[j]) == -1) {
-					maxIndex = j;
 				}
 			}
 			Util.swap(array, minIndex, i);
-			Util.swap(array, maxIndex, rightIndex-i);
+			
+			for (int j = i + 1; j <= rightIndex - i; j++) {
+
+				if (array[maxIndex].compareTo(array[j]) < 0) {
+					maxIndex = j;
+				}
+			}
+			Util.swap(array, maxIndex, rightIndex - i);
 		}
 	}
 }

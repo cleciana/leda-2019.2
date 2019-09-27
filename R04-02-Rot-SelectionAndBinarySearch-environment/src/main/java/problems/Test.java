@@ -2,6 +2,8 @@ package problems;
 
 import java.util.Scanner;
 
+import orderStatistic.OrderStatisticsSelectionImpl;
+
 public class Test {
 
 	public static void main(String[] args) {
@@ -11,11 +13,14 @@ public class Test {
 		for (int i = 0; i < linha.length; i++) {
 			numeros[i] = Integer.valueOf(linha[i]);
 		}
-		FloorCeilBinarySearch pro = new FloorCeilBinarySearch();
 		
-		System.out.println(pro.floor(numeros, 7));
+		OrderStatisticsSelectionImpl<Integer> order = new  OrderStatisticsSelectionImpl<Integer>();
 		
-		System.out.println(pro.ceil(numeros, 7));
+		// System.out.println(pro.floor(numeros, 7));
+		
+		// System.out.println(pro.ceil(numeros, 7));
+		
+		System.out.println(order.getOrderStatistics(numeros, 10));
 		
 		
 	}

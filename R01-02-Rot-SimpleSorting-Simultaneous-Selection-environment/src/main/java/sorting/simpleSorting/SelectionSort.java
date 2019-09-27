@@ -18,7 +18,7 @@ public class SelectionSort<T extends Comparable<T>> extends AbstractSorting<T> {
 			minIndex = i;
 			for(int j = i+1; j <= rightIndex; j++) {
 				
-				if(array[minIndex].compareTo(array[j]) == 1) {
+				if(array[j].compareTo(array[minIndex]) == -1) {
 					minIndex = j;
 				}
 			}
