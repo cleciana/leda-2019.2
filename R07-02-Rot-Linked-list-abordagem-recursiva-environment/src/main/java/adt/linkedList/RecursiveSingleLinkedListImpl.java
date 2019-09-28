@@ -19,33 +19,32 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 		return size(this); 
 	}
 
-	private int size(RecursiveSingleLinkedListImpl<T> recursiveSLL) {
+	private int size(RecursiveSingleLinkedListImpl<T> aux) {
 		int size = 0;
 		
-		if (recursiveSLL != null) {
+		if (aux != null) {
 			
-			if (recursiveSLL.data != null)
+			if (aux.data != null)
 				size += 1;
 			else
 				return size;
 		}
-		return size += this.size(recursiveSLL.getNext());
+		return size + this.size(aux.getNext());
 	}
-
 
 	@Override
 	public T search(T element) {
 		return search(this, element);
 	}
 
-	private T search(RecursiveSingleLinkedListImpl<T> recursiveSLL, T element) {
-		if (recursiveSLL.getData() == null) 
+	private T search(RecursiveSingleLinkedListImpl<T> aux, T element) {
+		if (aux.getData() == null) 
 			return null;
 		
-		if (recursiveSLL.getData().equals(element))
-			return recursiveSLL.getData();
+		if (aux.getData().equals(element))
+			return element;
 		
-		return search(recursiveSLL.getNext(), element);
+		return search(aux.getNext(), element);
 	}
 
 	@Override
@@ -69,13 +68,13 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 		remove(this, element);
 	}
 
-	private void remove(RecursiveSingleLinkedListImpl<T> recursiveSLL, T element) {
+	private void remove(RecursiveSingleLinkedListImpl<T> aux, T element) {
 		
-		if (recursiveSLL.getData() == null)
+		if (aux.getData() == null)
 			return;
 		
-		if (recursiveSLL.getNext().getData().equals(element)) 
-			recursiveSLL.setNext(recursiveSLL.getNext().getNext());
+		if (aux.getNext().getData().equals(element)) 
+			aux.setNext(aux.getNext().getNext());
 	}
 
 	@SuppressWarnings("unchecked")
