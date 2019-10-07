@@ -63,17 +63,22 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends A
 	}
 
 	@Override
-	public int indexOf(T element) {		
+	public int indexOf(T element) {
+		int index = -1;
 		int i = 0;
 
 		while (i < this.capacity()) {
 			int hash = ((HashFunctionLinearProbing<T>) getHashFunction()).hash(element, i);
 
-			if (this.table[hash] == null || this.table[hash].equals(element))
-				return hash;
+			if (this.table[hash] == null) {
+				return index;
+				
+			} else if (this.table[hash].equals(element)){
+				return hash; 
+			}
 			i += 1;
 		}
-		return -1;
+		return index;
 	}
 
 }
