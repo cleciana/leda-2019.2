@@ -8,6 +8,7 @@ import adt.hashtable.hashfunction.HashFunctionClosedAddressMethod;
 import adt.hashtable.hashfunction.HashFunctionFactory;
 import util.Util;
 
+@SuppressWarnings("unchecked")
 public class HashtableClosedAddressImpl<T> extends
 		AbstractHashtableClosedAddress<T> {
 
@@ -32,7 +33,7 @@ public class HashtableClosedAddressImpl<T> extends
 	 * @param method
 	 */
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "rawtypes" })
 	public HashtableClosedAddressImpl(int desiredSize,
 			HashFunctionClosedAddressMethod method) {
 		int realSize = desiredSize;
@@ -66,7 +67,6 @@ public class HashtableClosedAddressImpl<T> extends
 	@Override
 	public void insert(T element) {
 		int hash = ((HashFunctionClosedAddress<T>) this.getHashFunction()).hash(element);
-		System.out.println(hash);
 		
 		if ((LinkedList<T>) this.table[hash] != null) {
 			this.COLLISIONS += 1;
