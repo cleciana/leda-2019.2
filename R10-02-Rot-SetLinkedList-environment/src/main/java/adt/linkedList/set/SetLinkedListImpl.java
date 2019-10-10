@@ -3,6 +3,7 @@ package adt.linkedList.set;
 import adt.linkedList.SingleLinkedListImpl;
 import adt.linkedList.SingleLinkedListNode;
 
+@SuppressWarnings("unchecked")
 public class SetLinkedListImpl<T> extends SingleLinkedListImpl<T> implements SetLinkedList<T> {
 
 	@Override
@@ -17,7 +18,7 @@ public class SetLinkedListImpl<T> extends SingleLinkedListImpl<T> implements Set
 				while (aux != null && !aux.isNIL()) {
 
 					if (node.getData().equals(aux.getData())) {
-						this.remove(aux.getData());
+						// refazer remove para excluir apenas a segunda ocorrência.
 					}
 					aux = aux.getNext();
 				}
@@ -28,14 +29,15 @@ public class SetLinkedListImpl<T> extends SingleLinkedListImpl<T> implements Set
 
 	@Override
 	public SetLinkedList<T> union(SetLinkedList<T> otherSet) {
-		
+
 		SetLinkedList<T> retorno = this;
 
 		if (otherSet != null) {
+			SingleLinkedListNode<T> other = ((SingleLinkedListImpl<T>) otherSet).getHead();
 
-			T[] other = otherSet.toArray();
-			for (int i = 0; i < other.length; i++) {
-				retorno.insert(other[i]);
+			while (!other.isNIL()) {
+				retorno.insert(other.getData());
+				other = other.getNext();
 			}
 			this.removeDuplicates();
 		}
@@ -44,16 +46,17 @@ public class SetLinkedListImpl<T> extends SingleLinkedListImpl<T> implements Set
 
 	@Override
 	public SetLinkedList<T> intersection(SetLinkedList<T> otherSet) {
-		
+
 		SetLinkedList<T> retorno = new SetLinkedListImpl<>();
 
 		if (otherSet != null) {
-			
-			T[] other = otherSet.toArray();
-			for (int i = 0; i < other.length; i++) {
-				if (this.search(other[i]) != null) {
-					retorno.insert(other[i]);
+			SingleLinkedListNode<T> other = ((SingleLinkedListImpl<T>) otherSet).getHead();
+
+			while (!other.isNIL()) {
+				if (this.search(other.getData()) != null) {
+					retorno.insert(other.getData());
 				}
+				other = other.getNext();
 			}
 			this.removeDuplicates();
 		}
@@ -62,14 +65,14 @@ public class SetLinkedListImpl<T> extends SingleLinkedListImpl<T> implements Set
 
 	@Override
 	public void concatenate(SetLinkedList<T> otherSet) {
-		
+
 		SingleLinkedListNode<T> node = this.head;
-		
+
 		while (node != null && !node.isNIL()) {
 			node = node.getNext();
 		}
 		node.setNext(((SingleLinkedListImpl<T>) otherSet).getHead());
-		
+
 		this.removeDuplicates();
 	}
 
