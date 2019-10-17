@@ -13,6 +13,7 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends A
 
 	@Override
 	public void insert(T element) {
+		
 		if (this.elements == this.capacity()) {
 			throw new HashtableOverflowException();
 		}
@@ -46,17 +47,14 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends A
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public T search(T element) {
 		if (element != null) {
 
-			int i = 0;
-			while (i < this.capacity()) {
-				int hash = ((HashFunctionLinearProbing<T>) getHashFunction()).hash(element, i);
-
-				if (this.table[hash] != null && this.table[hash].equals(element))
-					return element;
-				i += 1;
+			int index = indexOf(element);
+			if (index != -1) {
+				return (T) this.table[index];
 			}
 		}
 		return null;
@@ -64,21 +62,19 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends A
 
 	@Override
 	public int indexOf(T element) {
-		int index = -1;
 		int i = 0;
 
 		while (i < this.capacity()) {
 			int hash = ((HashFunctionLinearProbing<T>) getHashFunction()).hash(element, i);
 
 			if (this.table[hash] == null) {
-				return index;
+				return -1;
 				
 			} else if (this.table[hash].equals(element)){
 				return hash; 
 			}
 			i += 1;
 		}
-		return index;
+		return -1;
 	}
-
 }

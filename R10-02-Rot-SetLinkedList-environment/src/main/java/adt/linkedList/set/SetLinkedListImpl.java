@@ -11,16 +11,17 @@ public class SetLinkedListImpl<T> extends SingleLinkedListImpl<T> implements Set
 		if (!this.isEmpty()) {
 
 			SingleLinkedListNode<T> node = this.head;
-			SingleLinkedListNode<T> aux = node.getNext();
+			SingleLinkedListNode<T> aux = node;
 
 			while (node != null && !node.isNIL()) {
 
 				while (aux != null && !aux.isNIL()) {
-
-					if (node.getData().equals(aux.getData())) {
-						// refazer remove para excluir apenas a segunda ocorrência.
+					SingleLinkedListNode<T> auxNext = aux.getNext();
+					
+					if (node.getData().equals(auxNext.getData())) {
+						aux.setNext(auxNext.getNext());
 					}
-					aux = aux.getNext();
+					aux = auxNext;
 				}
 				node = node.getNext();
 			}
