@@ -25,8 +25,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	}
 
 	private int height(BSTNode<T> node) {
-
-		if (node.isEmpty())
+		if (node == null || node.isEmpty())
 			return -1;
 
 		return 1 + Math.max(height((BSTNode<T>) node.getLeft()), height((BSTNode<T>) node.getRight()));
@@ -71,6 +70,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 			if (node.getRight() == null) {
 				node.setRight(new BSTNode<T>());
 				node.getRight().setData(element);
+				node.getRight().setParent(node);
 
 			} else {
 				this.insert((BSTNode<T>) node.getRight(), element);
@@ -79,6 +79,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 			if (node.getLeft() == null) {
 				node.setLeft(new BSTNode<T>());
 				node.getLeft().setData(element);
+				node.getLeft().setParent(node);
 
 			} else {
 				this.insert((BSTNode<T>) node.getLeft(), element);
@@ -91,12 +92,12 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		if (this.isEmpty())
 			return null;
 
-		return maximum(root.getRight());
+		return maximum(root);
 	}
 
 	private BSTNode<T> maximum(BTNode<T> node) {
 
-		if (node.getRight().isEmpty())
+		if (node.getRight() == null || node.getRight().isEmpty())
 			return (BSTNode<T>) node;
 
 		return maximum(node.getRight());
@@ -107,12 +108,12 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		if (this.isEmpty())
 			return null;
 
-		return minimum(root.getLeft());
+		return minimum(root);
 	}
 
 	private BSTNode<T> minimum(BTNode<T> node) {
 
-		if (node.getLeft().isEmpty())
+		if (node.getLeft() == null || node.getLeft().isEmpty())
 			return (BSTNode<T>) node;
 
 		return minimum(node.getLeft());
@@ -172,9 +173,12 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	}
 
 	private int size(BSTNode<T> node) {
+		if (node == null) return 0;
+		
 		int result = 0;
+		
 		// base case means doing nothing (return 0)
-		if (!node.isEmpty()) { // indusctive case
+		if (!node.isEmpty()) { // inductive case
 			result = 1 + size((BSTNode<T>) node.getLeft()) + size((BSTNode<T>) node.getRight());
 		}
 		return result;
