@@ -33,9 +33,9 @@ public class StudentBSTTest {
 
 		assertEquals(NIL, tree.getRoot());
 
-//		assertArrayEquals(new Integer[] {}, tree.order());
-//		assertArrayEquals(new Integer[] {}, tree.preOrder());
-//		assertArrayEquals(new Integer[] {}, tree.postOrder());
+		assertArrayEquals(new Integer[] {}, tree.order());
+		assertArrayEquals(new Integer[] {}, tree.preOrder());
+		assertArrayEquals(new Integer[] {}, tree.postOrder());
 
 		assertEquals(NIL, tree.search(12));
 		assertEquals(NIL, tree.search(-23));
@@ -44,13 +44,13 @@ public class StudentBSTTest {
 		assertEquals(null, tree.minimum());
 		assertEquals(null, tree.maximum());
 
-//		assertEquals(null, tree.sucessor(12));
-//		assertEquals(null, tree.sucessor(-23));
-//		assertEquals(null, tree.sucessor(0));
-//
-//		assertEquals(null, tree.predecessor(12));
-//		assertEquals(null, tree.predecessor(-23));
-//		assertEquals(null, tree.predecessor(0));
+		assertEquals(null, tree.sucessor(12));
+		assertEquals(null, tree.sucessor(-23));
+		assertEquals(null, tree.sucessor(0));
+
+		assertEquals(null, tree.predecessor(12));
+		assertEquals(null, tree.predecessor(-23));
+		assertEquals(null, tree.predecessor(0));
 	}
 
 	@Test
@@ -76,7 +76,7 @@ public class StudentBSTTest {
 		assertEquals(new Integer(23), tree.maximum().getData());
 	}
 
-	//@Test
+	@Test
 	public void testSucessorPredecessor() {
 
 		fillTree(); // -40 -34 0 2 5 6 9 12 23 67 76 232
@@ -113,14 +113,14 @@ public class StudentBSTTest {
 
 		Integer[] preOrder = new Integer[] { 6, -34, -40, 5, 2, 0, 23, 9, 12,
 				76, 67, 232 };
-		//assertArrayEquals(preOrder, tree.preOrder());
+		assertArrayEquals(preOrder, tree.preOrder());
 		assertEquals(4, tree.height());
 
-//		tree.remove(0);
-//		assertEquals(3, tree.height());
-//
-//		tree.remove(2);
-//		assertEquals(3, tree.height());
+		tree.remove(0);
+		assertEquals(3, tree.height());
+
+		tree.remove(2);
+		assertEquals(3, tree.height());
 	}
 
 	@Test
