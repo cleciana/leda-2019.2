@@ -17,3 +17,13 @@
   <level>FINE</level>
   <message>File 117110237-CLECIANA MARIA DE SANTANA.zip was received. It was sent by CLECIANA MARIA DE SANTANA from IP 150.165.42.128 at 21-10-2019 17*15*51</message>
 </record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-10-23T14:45:14.837-0300</date>
+  <logger>CLECIANA MARIA DE SANTANA</logger>
+  <level>FINE</level>
+  <message>File 117110237-CLECIANA MARIA DE SANTANA.zip was received. It was sent by CLECIANA MARIA DE SANTANA from IP 192.168.0.7 at 23-10-2019 14*45*14</message>
+</record>
