@@ -152,12 +152,16 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 	@Override
 	public T[] heapsort(T[] array) {
 		if (index != -1) {
-			heap = (T[]) new Comparable[heap.length];
+			heap = (T[]) new Comparable[array.length];
 			index = -1;
 		}
 		index += 1;
-		int i = index;
-		while (i > -1 && heap[i].compareTo(heap[parent(i)]) > 0) {
+		for (int i = 0; i < array.length; i++) {
+			heap[index] = array[i];
+		}
+
+		int i = parent(index);
+		while (i > 0 && heap[i].compareTo(heap[parent(i)]) > 0) {
 			Util.swap(heap, i, parent(i));
 			i = parent(i);
 		}
