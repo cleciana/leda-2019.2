@@ -11,16 +11,8 @@ public class Util {
 	 * @return
 	 */
 	public static <T extends Comparable<T>> BSTNode<T> leftRotation(BSTNode<T> node) {
-
-		BSTNode<T> aux = (BSTNode<T>) node.getRight();
-		node.setRight(aux.getLeft());
-		aux.setParent(node.getParent());
-		if (aux.getParent() != null)
-			aux.getParent().setLeft(aux);
-		node.setParent(aux);
-		aux.setLeft(node);
-		
-		return aux;
+		//TODO Implemente sua rotacao a esquerda aqui
+		throw new UnsupportedOperationException("Not implemented yet!");
 	}
 
 	/**
@@ -29,16 +21,8 @@ public class Util {
 	 * @return
 	 */
 	public static <T extends Comparable<T>> BSTNode<T> rightRotation(BSTNode<T> node) {
-		
-		BSTNode<T> aux = (BSTNode<T>) node.getLeft();
-		node.setLeft(aux.getRight());
-		aux.setParent(node.getParent());
-		if (aux.getParent() != null)
-			aux.getParent().setRight(aux);
-		node.setParent(aux);
-		aux.setRight(node);
-		
-		return aux;
+		//TODO Implemente sua rotacao a esquerda aqui
+		throw new UnsupportedOperationException("Not implemented yet!");
 	}
 
 	public static <T extends Comparable<T>> T[] makeArrayOfComparable(int size) {

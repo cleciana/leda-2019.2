@@ -12,21 +12,21 @@ import adt.bt.Util;
  *
  * @param <T>
  */
-public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements
-		AVLTree<T> {
+public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements AVLTree<T> {
 
 	// TODO Do not forget: you must override the methods insert and remove
 	// conveniently.
 	@Override
-	public void insert(BSTNode<T> node,T element) {
+	public void insert(T element) {
+		if (element != null)
+			this.insert(root, element);
+	}
+
+	private void insert(BSTNode<T> node, T element) {
 		if (node.isEmpty()) {
 			node.setData(element);
-			
-			BSTNode<T> avo = (BSTNode<T>) node.getParent().getParent();
-			int b = this.calculateBalance(avo);
-			
-			if (Math.abs(b) == 2)
-				rebalanceUp(avo);
+
+			rebalanceUp(node);
 
 		} else if (node.getData().compareTo(element) < 0) {
 
@@ -46,6 +46,53 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements
 			}
 		}
 	}
+
+	@Override
+	public void remove(T element) {
+		if (element != null) {
+			BSTNode<T> aux = search(element);
+			if (aux.isEmpty())
+				return;
+			remove(aux);
+		}
+	}
+	
+	private void remove(BSTNode<T> node) {
+		if (node.isEmpty())
+			return;
+
+		if (node.getLeft() != null && node.getRight() != null) {
+
+			BSTNode<T> sucessor = sucessor(node.getData());
+			node.setData(sucessor.getData());
+			remove(sucessor);
+
+		} else {
+			if (node.getLeft() == null && node.getRight() == null) {
+				if (node.getData().compareTo(node.getParent().getData()) < 0) {
+					node.getParent().setLeft(null);
+
+				} else {
+					node.getParent().setRight(null);
+				}
+			} else {
+				BSTNode<T> auxNode = (BSTNode<T>) node.getLeft();
+				if (auxNode == null) {
+					auxNode = (BSTNode<T>) node.getRight();
+				}
+
+				node.setData(auxNode.getData());
+				node.setRight(auxNode.getRight());
+				node.setLeft(auxNode.getLeft());
+
+				if (!node.isEmpty() && node.getRight() != null)
+					node.getRight().setParent(node);
+				if (!node.isEmpty() && node.getLeft() != null)
+					node.getLeft().setParent(node);
+			}
+		}
+		rebalanceUp((BSTNode<T>) node.getParent());
+	}
 	
 	// AUXILIARY
 	protected int calculateBalance(BSTNode<T> node) {
@@ -54,39 +101,37 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements
 
 	// AUXILIARY
 	protected void rebalance(BSTNode<T> node) {
-		BSTNode<T> parent = (BSTNode<T>) node.getParent();
-		int balance = calculateBalance(parent);
 		
-		// pendendo a esq e foi adc na esq
-		if (balance == 1 && isLeftChild(node)) {
-			Util.rightRotation((BSTNode<T>) parent.getParent());
+		int balance = calculateBalance(node);
+		if (Math.abs(balance) > 1) {
 			
-			// pendendo a esq e foi adc a dir
-		} else if (balance == 1 && !isLeftChild(node)) {
-			Util.leftRotation((BSTNode<T>) parent);
-			Util.rightRotation((BSTNode<T>) parent.getParent());
+			if (balance > 1) {
+				BSTNode<T> left = (BSTNode<T>) node.getLeft();
+				int b = calculateBalance(left);
+				
+				if (b < 0) {
+					Util.leftRotation(left);
+				}
+				Util.rightRotation(node);
 			
-			// pendendo a dir a foi adc a dir
-		} else if (balance == -1 && !isLeftChild(node)) {
-			Util.leftRotation((BSTNode<T>) parent.getParent());
-			
-			// pendendo a dir a foi adc a esq
-		} else if (balance == -1 && isLeftChild(node)) {
-			Util.rightRotation(parent);
-			Util.leftRotation((BSTNode<T>) parent.getParent());
+			} else if (balance < -1) {
+				BSTNode<T> right = (BSTNode<T>) node.getRight();
+				int b = calculateBalance(right);
+				
+				if (b > 0) {
+					Util.rightRotation(right);
+				}
+				Util.leftRotation(node);
+				
+			}
 		}
-	}
-
-	private boolean isLeftChild(BSTNode<T> node) {
-		return node.getData().compareTo(node.getParent().getData()) < 0;
 	}
 
 	// AUXILIARY
 	protected void rebalanceUp(BSTNode<T> node) {
-		BSTNode<T> parent = (BSTNode<T>) node.getParent();
-		while (parent != null) {
-			rebalance(parent);
-			parent = (BSTNode<T>) parent.getParent();
+		while (node != null) {
+			rebalance(node);
+			node = (BSTNode<T>) node.getParent();
 		}
 	}
 }
