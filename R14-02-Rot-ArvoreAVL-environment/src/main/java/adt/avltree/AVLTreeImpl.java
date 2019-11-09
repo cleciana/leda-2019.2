@@ -60,7 +60,12 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 	private void remove(BSTNode<T> node) {
 		if (node.isEmpty())
 			return;
-
+		
+		else if (node.equals(root) && this.size() == 1) {
+			root.setData(null);
+			return;
+		}
+		
 		if (node.getLeft() != null && node.getRight() != null) {
 
 			BSTNode<T> sucessor = sucessor(node.getData());
