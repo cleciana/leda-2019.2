@@ -3,8 +3,7 @@ package adt.avltree;
 import adt.bst.BSTNode;
 import adt.bt.Util;
 
-public class AVLCountAndFillImpl<T extends Comparable<T>> extends
-		AVLTreeImpl<T> implements AVLCountAndFill<T> {
+public class AVLCountAndFillImpl<T extends Comparable<T>> extends AVLTreeImpl<T> implements AVLCountAndFill<T> {
 
 	private int LLcounter;
 	private int LRcounter;
@@ -16,14 +15,22 @@ public class AVLCountAndFillImpl<T extends Comparable<T>> extends
 	}
 
 	@Override
+	protected void rebalanceUp(BSTNode<T> node) {
+		while (node != null) {
+			this.rebalance(node);
+			node = (BSTNode<T>) node.getParent();
+		}
+	}
+
+	@Override
 	protected void rebalance(BSTNode<T> node) {
 		int balance = calculateBalance(node);
 		if (Math.abs(balance) > 1) {
-			
+
 			if (balance > 1) {
 				BSTNode<T> left = (BSTNode<T>) node.getLeft();
 				int b = calculateBalance(left);
-				
+
 				if (b < 0) {
 					Util.leftRotation(left);
 					this.LRcounter += 1;
@@ -31,22 +38,22 @@ public class AVLCountAndFillImpl<T extends Comparable<T>> extends
 					this.RRcounter += 1;
 				}
 				root = Util.rightRotation(node);
-					
+
 			} else if (balance < -1) {
 				BSTNode<T> right = (BSTNode<T>) node.getRight();
 				int b = calculateBalance(right);
-				
+
 				if (b > 0) {
 					Util.rightRotation(right);
 					this.RLcounter += 1;
 				} else {
 					this.LLcounter += 1;
 				}
-				root = Util.leftRotation(node);	
+				root = Util.leftRotation(node);
 			}
 		}
 	}
-	
+
 	@Override
 	public int LLcount() {
 		return LLcounter;
@@ -69,8 +76,7 @@ public class AVLCountAndFillImpl<T extends Comparable<T>> extends
 
 	@Override
 	public void fillWithoutRebalance(T[] array) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		
 	}
 
 }

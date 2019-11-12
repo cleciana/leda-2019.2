@@ -22,16 +22,17 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 			this.insert(root, element);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void insert(BSTNode<T> node, T element) {
 		if (node.isEmpty()) {
 			node.setData(element);
-
 			rebalanceUp(node);
 
 		} else if (node.getData().compareTo(element) < 0) {
 
 			if (node.getRight() == null) {
-				node.setRight(new BSTNode.Builder().data(element).parent(node).build());
+				node.setRight(new BSTNode.Builder<T>().data(element).parent(node).build());
+				rebalanceUp((BSTNode<T>) node.getRight());
 
 			} else {
 				this.insert((BSTNode<T>) node.getRight(), element);
@@ -39,12 +40,14 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 		} else if (node.getData().compareTo(element) > 0) {
 
 			if (node.getLeft() == null) {
-				node.setLeft(new BSTNode.Builder().data(element).parent(node).build());
+				node.setLeft(new BSTNode.Builder<T>().data(element).parent(node).build());
+				rebalanceUp((BSTNode<T>) node.getLeft());
 
 			} else {
 				this.insert((BSTNode<T>) node.getLeft(), element);
 			}
 		}
+		
 	}
 
 	@Override
