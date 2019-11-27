@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-11-18T16:11:57.091-0300</date>
+  <logger>CLECIANA MARIA DE SANTANA</logger>
+  <level>FINE</level>
+  <message>File 117110237-CLECIANA MARIA DE SANTANA.zip was received. It was sent by CLECIANA MARIA DE SANTANA from IP 150.165.42.127 at 18-11-2019 16*11*57</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-11-19T22:02:45.212-0300</date>
+  <logger>CLECIANA MARIA DE SANTANA</logger>
+  <level>FINE</level>
+  <message>File 117110237-CLECIANA MARIA DE SANTANA.zip was received. It was sent by CLECIANA MARIA DE SANTANA from IP 192.168.0.3 at 19-11-2019 22*02*45</message>
+</record>

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 
-import util.Util;
-
 /**
  * O comportamento de qualquer heap é definido pelo heapify. Neste caso o
  * heapify dessa heap deve comparar os elementos e colocar o maior sempre no
@@ -86,7 +84,10 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 		if (maximo == position)
 			return;
 
-		Util.swap(heap, position, maximo);
+		T aux = heap[position];
+		heap[position] = heap[maximo];
+		heap[maximo] = aux;
+
 		heapify(maximo);
 	}
 
@@ -113,7 +114,10 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 
 		int i = index;
 		while (i > 0 && comparator.compare(heap[i], heap[parent(i)]) > 0) {
-			Util.swap(heap, i, parent(i));
+			T aux = heap[i];
+			heap[i] = heap[parent(i)];
+			heap[parent(i)] = aux;
+
 			i = parent(i);
 		}
 	}
@@ -133,7 +137,7 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 	public T extractRootElement() {
 		if (this.index == -1)
 			return null;
-		
+
 		T auxReturn = heap[0];
 		heap[0] = heap[index];
 		heapify(0);
@@ -151,19 +155,13 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 
 	@Override
 	public T[] heapsort(T[] array) {
-		if (index != -1) {
-			heap = (T[]) new Comparable[array.length];
-			index = -1;
-		}
-		index += 1;
-		for (int i = 0; i < array.length; i++) {
-			heap[index] = array[i];
-		}
+		heap = (T[]) new Comparable[array.length];
+		index = -1;
 
-		int i = parent(index);
-		while (i > 0 && heap[i].compareTo(heap[parent(i)]) > 0) {
-			Util.swap(heap, i, parent(i));
-			i = parent(i);
+		for (int i = 0; i < array.length; i++) {
+			index += 1;
+			heap[index] = array[i];
+			heapify(parent(index));
 		}
 		return heap;
 	}

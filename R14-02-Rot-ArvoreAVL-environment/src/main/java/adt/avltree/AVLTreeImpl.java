@@ -118,8 +118,7 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 					Util.leftRotation(left);
 				}
 				root = Util.rightRotation(node);
-				
-			
+					
 			} else if (balance < -1) {
 				BSTNode<T> right = (BSTNode<T>) node.getRight();
 				int b = calculateBalance(right);
@@ -127,8 +126,7 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 				if (b > 0) {
 					Util.rightRotation(right);
 				}
-				root = Util.leftRotation(node);
-				
+				root = Util.leftRotation(node);		
 			}
 		}
 	}
